@@ -1,7 +1,6 @@
 import streamlit as st
-import mysql.connector
 from insert import insert_values
-from db import connect_to_db, get_alldata_from_database
+from db import connect_online, get_alldata_from_database
 
 def main():
     st.header("Admin Page")
@@ -20,7 +19,7 @@ def main():
         weight = st.number_input("Weight (g)", min_value=0.0, key="weight")
         price = st.number_input("Price ($)", min_value=0.0, key="price")
         if st.button("Insert Data"):
-            connection = connect_to_db()
+            connection = connect_online()
             if connection:
                 data = (brand, model, operating_system, internal_memory, RAM, performance, main_camera, selfie_camera, battery_size, screen_size, weight, price)
                 insert_values(connection, data)
