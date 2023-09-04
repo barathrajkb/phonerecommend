@@ -1,23 +1,10 @@
-import mysql.connector
 import pandas as pd
 import streamlit as st
-
-def connect_to_db():
-    try:
-        connection = mysql.connector.connect(
-            host='localhost',
-            user='root',
-            password='password',
-            database='abcheck'
-        )
-        return connection
-    except mysql.connector.Error as err:
-        st.error(f"Error: {err}")
-        return None
+import psycopg2
 
 def get_alldata_from_database():
     # Connect to the MySQL database
-    conn = connect_to_db()
+    conn = connect_online()
 
     # Query to fetch data from the table
     query = "SELECT * FROM abcheck;"  # Replace 'your_table_name' with your actual table name
@@ -29,3 +16,22 @@ def get_alldata_from_database():
     conn.close()
 
     return df
+
+def connect_online():
+    db_config = {
+        'dbname': 'verceldb',
+        'user': 'default',
+        'password': '7jK2RVPDZSpx',
+        'host': 'ep-shrill-mountain-97630726.ap-southeast-1.postgres.vercel-storage.com',
+        'port': '5432'
+    }
+    try:
+        # Establish a connection to the database
+        connection = psycopg2.connect(**db_config)
+        print("Connection to PostgreSQL is successful.")
+        return connection
+    except (Exception, psycopg2.Error) as error:
+        print("Error connecting to PostgreSQL:", error)
+        return None
+
+connect_online()
