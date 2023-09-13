@@ -7,7 +7,7 @@ def get_alldata_from_database():
     conn = connect_online()
 
     # Query to fetch data from the table
-    query = "SELECT * FROM abcheck;"  # Replace 'your_table_name' with your actual table name
+    query = "SELECT * FROM phonestable;"
 
     # Use pandas to read data from the database and create a DataFrame
     df = pd.read_sql_query(query, conn)
