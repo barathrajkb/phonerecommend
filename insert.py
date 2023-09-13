@@ -7,7 +7,7 @@ def insert_data_from_csv(connection, csv_file_path):
 
     columns = ', '.join(df.columns)
     placeholders = ', '.join(['%s'] * len(df.columns))
-    query = f'INSERT INTO abcheck ({columns}) VALUES ({placeholders})'
+    query = f'INSERT INTO phonestable ({columns}) VALUES ({placeholders})'
 
     cursor = connection.cursor()
     for row in df.itertuples(index=False):
@@ -32,7 +32,7 @@ def insert_values(connection, data):
 def create_db():
     conn = connect_online()
     cursor = conn.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS abcheck (id int primary key, brand VARCHAR(30), model VARCHAR(50), operating_system VARCHAR(10), internal_memory INT, RAM INT, performance INT, main_camera INT, selfie_camera INT, battery_size INT, screen_size FLOAT, weight FLOAT, price FLOAT)")
+    cursor.execute("CREATE TABLE IF NOT EXISTS phonestable (id int primary key, brand VARCHAR(30), model VARCHAR(50), operating_system VARCHAR(10), internal_memory INT, RAM INT, performance INT, main_camera INT, selfie_camera INT, battery_size INT, screen_size FLOAT, weight FLOAT, price FLOAT)")
     conn.commit()
     cursor.close()
     conn.close()
@@ -43,7 +43,7 @@ def insert_online_from_csv(connection, csv_file_path):
     columns = ', '.join(df.columns)
     placeholders = ', '.join(['%s'] * len(df.columns))
     cursor = connection.cursor()
-    query = f'INSERT INTO abcheck ({columns}) VALUES ({placeholders})'
+    query = f'INSERT INTO phonestable ({columns}) VALUES ({placeholders})'
     for row in df.itertuples(index=False):
         row_values = [None if pd.isna(value) else value for value in row]
         cursor.execute(query, row_values)
