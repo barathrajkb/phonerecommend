@@ -17,7 +17,7 @@ def create_phone_card(phone_name, internal_memory, ram, battery_size, screen_siz
 
 
 def main():
-    st.title("Smartphone Finder")
+    st.title("SpecWise")
     os_options = ['Any', 'Android', 'iOS']
     selected_os = st.selectbox("Select Operating System:", os_options) 
     # Dropdown for Use Case
